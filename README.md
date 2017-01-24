@@ -13,17 +13,22 @@ This is hugly but kind of self contained.
 
 # How to run
 Step 1.0:
+
 	git clone https://github.com/7omate/python-simple-upload
 	cd python-simple-upload
 
 Step 1 (alt 1):
+
 	wget https://raw.githubusercontent.com/7omate/python-simple-upload/master/pyup.py
 
 Step 1 (alt 2):
+
 	curl -o pyup.py https://raw.githubusercontent.com/7omate/python-simple-upload/master/pyup.py
 
 Step 2 (optional):
+
 	pip install -r requirements.txt
 
 Step 3:
+
 	python pyup.py
