@@ -20,14 +20,17 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 UPLOAD_FORM = '''
         <h1>Insecure file upload</h1>
-        <form action=upload method=post enctype=multipart/form-data>
+        <form method=post enctype=multipart/form-data>
             <input type=file name=file>
             <input type=submit value=Upload>
         </form>
 '''
 
-@app.route('/upload', methods=['GET', 'POST'])
-def upload_file():
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    '''
+        Super basic listing of files
+    '''
     if request.method == 'POST':
         if 'file' not in request.files:
             return 'No file present'
@@ -35,18 +38,6 @@ def upload_file():
         if f.filename == '':
             return 'No file name'
         f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
-        return 'Successfully Uploaded'
-    else:
-        return '''
-            <!doctype html>
-            <head><title>Insecure simple file upload</title></head>
-        ''' + UPLOAD_FORM
-
-@app.route('/', methods=['GET'])
-def index():
-    '''
-        Super basic listing of files
-    '''
     resp = UPLOAD_FORM
     resp += '<div><h1>List of files in ' + UPLOAD_FOLDER + '</h1>'
     resp += '<ol>'
@@ -62,4 +53,9 @@ def serve_files(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 # run the app
-app.run(port=PORT, host=HOST, debug=False)
+try:
+    app.run(port=PORT, host=HOST, debug=False)
+except:
+    print("Warning starting on a random port")
+    app.run(port=0, host=HOST, debug=False)
+
