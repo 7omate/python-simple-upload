@@ -38,7 +38,8 @@ def index():
         if f.filename == '':
             return 'No file name'
         f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
-    resp = UPLOAD_FORM
+    resp = '<img src="https://api.qrserver.com/v1/create-qr-code/?data=http://' + HOST + ':' + str(PORT) + '&amp;size=100x100" alt="" title="" />'
+    resp += UPLOAD_FORM
     resp += '<div><h1>List of files in ' + UPLOAD_FOLDER + '</h1>'
     resp += '<ol>'
     for f in os.listdir(UPLOAD_FOLDER):
